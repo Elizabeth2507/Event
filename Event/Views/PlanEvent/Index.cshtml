@@ -1,0 +1,36 @@
+﻿@model IEnumerable<Event.Models.PlanEvent>
+@{
+    ViewBag.Title = "PlanEvents";
+}
+
+<h1>Events</h1>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+
+
+        
+       @foreach (var item in Model)
+       {
+
+        <div class="row">
+           <h3>@Html.DisplayFor(modelItem => item.Title)</h3> 
+        </div>
+            @Html.DisplayFor(modelItem => item.StartDateTime)
+        <div class="row">
+            @Html.DisplayFor(modelItem => item.Description)
+        </div>
+            @Html.DisplayFor(modelItem => item.Location)
+        <div class="row">
+
+            @Html.ActionLink("Details", "Details", new { id = item.ID })
+            @Html.ActionLink("Invite", "Letter", new { id = item.ID })
+        </div>
+            }
+
+
+
+
+
+
