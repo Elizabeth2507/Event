@@ -1,14 +1,13 @@
 ﻿@model IEnumerable<Event.Models.PlanEvent>
 @{
-    ViewBag.Title = "PlanEvents";
+    ViewBag.Title = "Details";
 }
 
-<h1>Events</h1>
-
-     
-       @foreach (var item in Model)
-       {
-
+<h1>Details</h1>
+      
+ @foreach (var item in Model)
+ {
+            
         <div class="row">
            <h3>@Html.DisplayFor(modelItem => item.Title)</h3> 
         </div>
@@ -17,15 +16,20 @@
             @Html.DisplayFor(modelItem => item.Description)
         </div>
             @Html.DisplayFor(modelItem => item.Location)
-        <div class="row">
+    <div class="row">
 
+        <div class="form-group">
             
-            @Html.ActionLink("Invite", "Letter", new { id = item.ID })
         </div>
-       }
+       @Html.ActionLink("Next", "Create")
+    </div>
 
 
+ }
 
 
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
 
 

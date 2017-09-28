@@ -175,6 +175,10 @@
     <Compile Include="Migrations\201709280249546_Change_EmailForm.Designer.cs">
       <DependentUpon>201709280249546_Change_EmailForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201709280520586_Edit_EmailForm.cs" />
+    <Compile Include="Migrations\201709280520586_Edit_EmailForm.Designer.cs">
+      <DependentUpon>201709280520586_Edit_EmailForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Author.cs" />
     <Compile Include="Models\EmailForm.cs" />
@@ -224,6 +228,10 @@
     <Content Include="Views\PlanEvent\Letter.cshtml" />
     <Content Include="Views\PlanEvent\Sent.cshtml" />
     <Content Include="Views\PlanEvent\Activation.cshtml" />
+    <Content Include="Views\Guest\Index.cshtml" />
+    <Content Include="Views\Guest\Details.cshtml" />
+    <Content Include="Views\Guest\Create.cshtml" />
+    <Content Include="Views\Guest\Confirm.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -245,6 +253,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201709280249546_Change_EmailForm.resx">
       <DependentUpon>201709280249546_Change_EmailForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201709280520586_Edit_EmailForm.resx">
+      <DependentUpon>201709280520586_Edit_EmailForm.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

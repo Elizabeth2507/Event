@@ -9,6 +9,8 @@ using Event.Models;
 using System.Data;
 using System.Net.Mail;
 using System.Threading.Tasks;
+using System.Data.Entity;
+using System.Web.Routing;
 
 namespace Event.Controllers
 {
@@ -20,8 +22,8 @@ namespace Event.Controllers
         {
             return View(db.PlanEvents.ToList());
         }
-
-        // GET: Movies/Create 
+    
+        // GET
         public ActionResult Create()
         {
             return View();
@@ -42,13 +44,16 @@ namespace Event.Controllers
             }
             catch (DataException /* dex */)
             {
-                //Log the error (uncomment dex variable name and add a line here to write a log.
+                
                 ModelState.AddModelError("", "Unable to save changes. Try again, and if the problem persists see your system administrator.");
             }
             return View(planEvent);
         }
+
+        
         public ActionResult Activation()
         {
+            int activeEventID = 0;
             ViewBag.Message = "Invalid Activation code.";
             if (RouteData.Values["id"] != null)
             {
@@ -58,16 +63,21 @@ namespace Event.Controllers
                 Guest guest = db.Guests.Where(p => p.ActivationCode == activationCode).FirstOrDefault();
                 if (guest != null)
                 {
+                    foreach(var g in guest.PlanEvents)
+                    {
+                        activeEventID = g.ID;
+                    }
                     db.Guests.Remove(guest);
                     db.SaveChanges();
-                    ViewBag.Message = "Activation successful.";
+                    
                 }
             }
-
-            return View();
+            TempData["arg"] = activeEventID;
+            return RedirectToAction("Details", "Guest");
+            
         }
 
-        // GET: Movies/Create 
+        // GET
         public ActionResult Letter()
         {
             return View();
@@ -75,14 +85,29 @@ namespace Event.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Letter(EmailForm model)
+        public async Task<ActionResult> Letter(EmailForm model, int? id)
         {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            List<PlanEvent> ev = new List<PlanEvent>();
+            ev.Add(db.PlanEvents.Find(id));
+            if (ev == null)
+            {
+                return HttpNotFound();
+            }
+
             Guid activationCode = Guid.NewGuid();
             db.Guests.Add(new Guest
             {
                 Email = model.ToEmail,
-                ActivationCode = activationCode
+                ActivationCode = activationCode,
+                PlanEvents = ev
+
+                
             });
+
             db.SaveChanges();    
             if (ModelState.IsValid)
             {

@@ -17,5 +17,6 @@ namespace Event.Models
         public string FromEmail { get; set; }
         [Required]
         public string Message { get; set; }
+        public  virtual ICollection<PlanEvent> PlanEvents { get; set; }
     }
 }
