@@ -115,7 +115,7 @@ namespace Event.Controllers
                 body += "<br /><br />Please click the following link to activate your account";
                 body += "<br /><a href = '" + string.Format("{0}://{1}/PlanEvent/Activation/{2}", Request.Url.Scheme, Request.Url.Authority, activationCode) + "'>Click here to activate your account.</a>";
                 var message = new MailMessage();
-                message.To.Add(new MailAddress("elizabeth.olamisan@gmail.com")); //replace with valid value
+                message.To.Add(new MailAddress("your@gmail.com")); //replace with valid value
                 message.Subject = "Your email subject";
                 message.Body = string.Format(body, model.FromName, model.FromEmail, model.Message);
                 message.IsBodyHtml = true;
